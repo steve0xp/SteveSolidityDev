@@ -19,5 +19,5 @@ A simple , 1 pool implementation of sushiswaps original masterchef.
     - review with DK
 - write testing plan
 - compile and test
-- review with DK
+- review with DK and finalize
 
