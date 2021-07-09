@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.4;
 
-// Inheritance
+// Inheritance... need to populate, this is just pseudo-code phase atm. 
 
 import "./Ierc721MiddleMan.sol";
 
@@ -42,6 +42,11 @@ contract erc721MiddleMan is Ierc721MiddleMan {
      * @notice display initiated trade details
      */
     event proposedTrade(string tradeName, uint256 user1TokenId, address user2, uint256 user2TokenID);
+     
+    /**
+     * @notice display name of completed trade. Users should check their wallets to see that they have received the NFTs.
+     */
+    event completedTrade(string tradeName);
 
    /* ========== VIEWS ========== */
 
@@ -104,8 +109,14 @@ contract erc721MiddleMan is Ierc721MiddleMan {
      * person's NFT? So it would be good to send to the contract the NFTs so they could not just demand it back unless they cancel the trade, but the contract would have logic
      * in it that doesn't allow cancels to happen if the other NFT has been traded.
      */
-    function tradezies() public override {
-
+    function tradezies(string tradeName) public override {
+        require (!((tradeName.nft1._owners(tradeName.nft2)) = (tradeName.user1 || tradeName.user1)), "Someone has cancelled on the trade, trade is void") 
+        //proceed with trade where contract sends nfts to respective users.
+        tradeName.nft1.safeTransferFrom(address(this), tradeName.user2, user1TokenId);
+        tradeName.nft2.safeTransferFrom(address(this), tradeName.user1, user2TokenId);
+        emit completedTrade(string tradeName);
     }
 
 }
+
+// old code I may use in last function:     if ((tradeName.nft1._owners(tradeName.nft2)) = address(this) && (tradeName.nft1._owners(tradeName.nft1)) = address(this))
